@@ -1,0 +1,8 @@
+{
+  "presets": [
+    "es2015", "react", "airbnb","es2017"
+  ],
+  "plugins": [
+    "transform-class-properties"
+  ]
+}
