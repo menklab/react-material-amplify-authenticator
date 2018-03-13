@@ -48,7 +48,6 @@ const styles = theme => ({
     justifyContent: "center"
   }),
   errorMessage: {
-    color: this.props.errorColor,
     display: "inline"
   },
   bottomLinks: theme.mixins.gutters({
@@ -198,7 +197,7 @@ class ForgotPassword extends AuthPiece {
   };
 
   submitView = () => {
-    const {classes} = this.props;
+    const {classes, errorColor} = this.props;
     const {inputs, error, shake, busy} = this.state;
 
     return (
@@ -264,7 +263,7 @@ class ForgotPassword extends AuthPiece {
           {!!error ?
             <Zoom direction="right" in={!!error} mountOnEnter unmountOnExit>
               <Paper className={classes.errorPaper} elevation={0}>
-                <Typography variant="body2" className={classes.errorMessage}>{error.message}</Typography>
+                <Typography variant="body2" className={classes.errorMessage} style={{"color": errorColor}}>{error.message}</Typography>
               </Paper>
             </Zoom>
             : null

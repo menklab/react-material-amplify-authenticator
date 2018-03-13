@@ -4,7 +4,37 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _defineProperty2 = require("babel-runtime/helpers/defineProperty");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _toConsumableArray2 = require("babel-runtime/helpers/toConsumableArray");
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _regenerator = require("babel-runtime/regenerator");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require("babel-runtime/helpers/asyncToGenerator");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require("babel-runtime/helpers/createClass");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require("babel-runtime/helpers/possibleConstructorReturn");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require("babel-runtime/helpers/inherits");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require("react");
 
@@ -48,18 +78,6 @@ var _Authenticator = require("../Authenticator");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var styles = function styles(theme) {
   return {
     root: theme.mixins.gutters({
@@ -98,7 +116,6 @@ var styles = function styles(theme) {
       justifyContent: "center"
     }),
     errorMessage: {
-      color: undefined.props.errorColor,
       display: "inline"
     },
     bottomLinks: theme.mixins.gutters({
@@ -126,20 +143,20 @@ var defaultState = {
 };
 
 var ForgotPassword = function (_AuthPiece) {
-  _inherits(ForgotPassword, _AuthPiece);
+  (0, _inherits3["default"])(ForgotPassword, _AuthPiece);
 
   function ForgotPassword(props, context) {
     var _this2 = this;
 
-    _classCallCheck(this, ForgotPassword);
+    (0, _classCallCheck3["default"])(this, ForgotPassword);
 
-    var _this = _possibleConstructorReturn(this, (ForgotPassword.__proto__ || Object.getPrototypeOf(ForgotPassword)).call(this, props, context));
+    var _this = (0, _possibleConstructorReturn3["default"])(this, (ForgotPassword.__proto__ || Object.getPrototypeOf(ForgotPassword)).call(this, props, context));
 
     _this.handleRequest = function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function () {
+      var _ref = (0, _asyncToGenerator3["default"])( /*#__PURE__*/_regenerator2["default"].mark(function () {
         function _callee(e) {
           var inputs, username;
-          return regeneratorRuntime.wrap(function () {
+          return _regenerator2["default"].wrap(function () {
             function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
@@ -193,10 +210,10 @@ var ForgotPassword = function (_AuthPiece) {
     }();
 
     _this.handleSubmit = function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function () {
+      var _ref2 = (0, _asyncToGenerator3["default"])( /*#__PURE__*/_regenerator2["default"].mark(function () {
         function _callee2(e) {
           var inputs, username, code, password;
-          return regeneratorRuntime.wrap(function () {
+          return _regenerator2["default"].wrap(function () {
             function _callee2$(_context2) {
               while (1) {
                 switch (_context2.prev = _context2.next) {
@@ -212,7 +229,7 @@ var ForgotPassword = function (_AuthPiece) {
                     username = inputs.username, code = inputs.code, password = inputs.password;
 
                     _awsAmplify.Auth.forgotPasswordSubmit(username, code, password).then(function () {
-                      _this.setState.apply(_this, _toConsumableArray(defaultState).concat([{
+                      _this.setState.apply(_this, (0, _toConsumableArray3["default"])(defaultState).concat([{
                         view: FORGOT_PASSWORD_STATE.success
                       }]));
                     })["catch"](function (err) {
@@ -268,7 +285,7 @@ var ForgotPassword = function (_AuthPiece) {
         event.persist();
         _this.setState(function (prevState) {
           return {
-            inputs: Object.assign({}, prevState.inputs, _defineProperty({}, name, event.target.value))
+            inputs: Object.assign({}, prevState.inputs, (0, _defineProperty3["default"])({}, name, event.target.value))
           };
         });
       };
@@ -314,7 +331,9 @@ var ForgotPassword = function (_AuthPiece) {
     };
 
     _this.submitView = function () {
-      var classes = _this.props.classes;
+      var _this$props = _this.props,
+          classes = _this$props.classes,
+          errorColor = _this$props.errorColor;
       var _this$state2 = _this.state,
           inputs = _this$state2.inputs,
           error = _this$state2.error,
@@ -402,7 +421,7 @@ var ForgotPassword = function (_AuthPiece) {
               { className: classes.errorPaper, elevation: 0 },
               _react2["default"].createElement(
                 _Typography2["default"],
-                { variant: "body2", className: classes.errorMessage },
+                { variant: "body2", className: classes.errorMessage, style: { "color": errorColor } },
                 error.message
               )
             )
@@ -509,7 +528,7 @@ var ForgotPassword = function (_AuthPiece) {
     return _this;
   }
 
-  _createClass(ForgotPassword, [{
+  (0, _createClass3["default"])(ForgotPassword, [{
     key: "render",
     value: function () {
       function render() {
@@ -583,7 +602,6 @@ var ForgotPassword = function (_AuthPiece) {
       return render;
     }()
   }]);
-
   return ForgotPassword;
 }(_Auth.AuthPiece);
 

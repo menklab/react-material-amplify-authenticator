@@ -33,7 +33,6 @@ const styles = theme => ({
     justifyContent: "center"
   }),
   errorMessage: {
-    color: this.props.errorColor,
     display: "inline"
   },
   bottomLinks: theme.mixins.gutters({
@@ -109,7 +108,7 @@ class RequireNewPassword extends AuthPiece {
   render() {
 
     const {inputs, error, shake, busy} = this.state;
-    const {classes, authState, hide} = this.props;
+    const {classes, authState, hide, errorColor} = this.props;
 
     // if we are signed in then do not render
     if (hide && hide.includes(RequireNewPassword)) {
@@ -157,7 +156,7 @@ class RequireNewPassword extends AuthPiece {
             {!!error ?
               <Zoom direction="right" in={!!error} mountOnEnter unmountOnExit>
                 <Paper className={classes.errorPaper} elevation={0}>
-                  <Typography variant="body2" className={classes.errorMessage}>{error.message}</Typography>
+                  <Typography variant="body2" className={classes.errorMessage} style={{"color": errorColor}}>{error.message}</Typography>
                 </Paper>
               </Zoom>
               : null

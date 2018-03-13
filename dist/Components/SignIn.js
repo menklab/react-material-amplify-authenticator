@@ -4,7 +4,33 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _defineProperty2 = require("babel-runtime/helpers/defineProperty");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _regenerator = require("babel-runtime/regenerator");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require("babel-runtime/helpers/asyncToGenerator");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require("babel-runtime/helpers/createClass");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require("babel-runtime/helpers/possibleConstructorReturn");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require("babel-runtime/helpers/inherits");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require("react");
 
@@ -48,16 +74,6 @@ var _Authenticator = require("../Authenticator");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var styles = function styles(theme) {
   return {
     root: theme.mixins.gutters({
@@ -98,26 +114,27 @@ var defaultState = {
 };
 
 var SignIn = function (_AuthPiece) {
-  _inherits(SignIn, _AuthPiece);
+  (0, _inherits3["default"])(SignIn, _AuthPiece);
 
   function SignIn(props, context) {
     var _this2 = this;
 
-    _classCallCheck(this, SignIn);
+    (0, _classCallCheck3["default"])(this, SignIn);
 
-    var _this = _possibleConstructorReturn(this, (SignIn.__proto__ || Object.getPrototypeOf(SignIn)).call(this, props, context));
+    var _this = (0, _possibleConstructorReturn3["default"])(this, (SignIn.__proto__ || Object.getPrototypeOf(SignIn)).call(this, props, context));
 
     _this.handleSubmit = function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function () {
+      var _ref = (0, _asyncToGenerator3["default"])( /*#__PURE__*/_regenerator2["default"].mark(function () {
         function _callee(e) {
           var inputs;
-          return regeneratorRuntime.wrap(function () {
+          return _regenerator2["default"].wrap(function () {
             function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
                   case 0:
                     e.stopPropagation();
                     e.preventDefault();
+
                     _this.setState({
                       busy: true,
                       shake: false,
@@ -185,7 +202,7 @@ var SignIn = function (_AuthPiece) {
         event.persist();
         _this.setState(function (prevState) {
           return {
-            inputs: Object.assign({}, prevState.inputs, _defineProperty({}, name, event.target.value))
+            inputs: Object.assign({}, prevState.inputs, (0, _defineProperty3["default"])({}, name, event.target.value))
           };
         });
       };
@@ -198,7 +215,7 @@ var SignIn = function (_AuthPiece) {
     return _this;
   }
 
-  _createClass(SignIn, [{
+  (0, _createClass3["default"])(SignIn, [{
     key: "checkContact",
     value: function () {
       function checkContact(user) {
@@ -310,7 +327,8 @@ var SignIn = function (_AuthPiece) {
                   { className: classes.errorPaper, elevation: 0 },
                   _react2["default"].createElement(
                     _Typography2["default"],
-                    { variant: "body2", className: classes.errorMessage, style: { "color": errorColor } },
+                    { variant: "body2", className: classes.errorMessage,
+                      style: { "color": errorColor } },
                     error.message
                   )
                 )
@@ -342,7 +360,6 @@ var SignIn = function (_AuthPiece) {
       return render;
     }()
   }]);
-
   return SignIn;
 }(_Auth.AuthPiece);
 

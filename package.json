@@ -31,6 +31,7 @@
     "aws-amplify-react": "^0.1.34",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
+    "babel-runtime": "^6.26.0",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
@@ -53,5 +54,7 @@
   },
   "peerDependencies": {
     "react": "^16.1.1"
+  },
+  "dependencies": {
   }
 }

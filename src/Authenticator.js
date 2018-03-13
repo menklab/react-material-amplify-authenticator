@@ -6,7 +6,10 @@ import RequireNewPassword from './Components/RequireNewPassword'
 import {adjustRBGAlphaCss} from "./Utils";
 import Paper from "material-ui/Paper/Paper";
 import AmplifyMessageMap from 'aws-amplify-react/dist/AmplifyMessageMap';
-import {Auth} from 'aws-amplify';
+import Amplify, {Auth} from 'aws-amplify';
+import PropTypes from 'prop-types';
+
+
 
 export const AUTH_STATES = {
   signIn: "signIn",
@@ -55,6 +58,15 @@ const defaultState = {
 class Authenticator extends Component {
   constructor(props, context) {
     super(props, context);
+
+    Amplify.configure({
+      Auth: {
+        region: props.awsAuthRegion, // REQUIRED - Amazon Cognito Region
+        userPoolId: props.userPoolId , // OPTIONAL - Amazon Cognito User Pool ID
+        userPoolWebClientId: props.clientAppId, // User Pool App Client ID
+      },
+    });
+
     this.state = {
       ...defaultState,
       errorColor: !!this.props.errorColor ? this.props.errorColor : defaultState.errorColor,
@@ -109,8 +121,6 @@ class Authenticator extends Component {
   render() {
     const {authState, authData, errorColor} = this.state;
 
-    console.log("errorColor: ", errorColor);
-
     let {hideDefault, hide, federated} = this.props;
     if (!hide) {
       hide = [];
@@ -151,6 +161,11 @@ class Authenticator extends Component {
     )
   }
 }
+Authenticator.propTypes = {
+  awsAuthRegion: PropTypes.string.isRequired,
+  userPoolId: PropTypes.string.isRequired,
+  clientAppId: PropTypes.string.isRequired,
+};
 
 export default withStyles(styles)(Authenticator);
 

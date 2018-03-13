@@ -77,6 +77,7 @@ class SignIn extends AuthPiece {
   handleSubmit = async e => {
     e.stopPropagation();
     e.preventDefault();
+
     this.setState({
       busy: true,
       shake: false,
@@ -198,7 +199,8 @@ class SignIn extends AuthPiece {
             {!!error ?
               <Zoom direction="right" in={!!error} mountOnEnter unmountOnExit>
                 <Paper className={classes.errorPaper} elevation={0}>
-                  <Typography variant="body2" className={classes.errorMessage} style={{"color": errorColor}}>{error.message}</Typography>
+                  <Typography variant="body2" className={classes.errorMessage}
+                              style={{"color": errorColor}}>{error.message}</Typography>
                 </Paper>
               </Zoom>
               : null

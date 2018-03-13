@@ -5,7 +5,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.AuthenticationContainer = exports.AUTH_STATES = undefined;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require("babel-runtime/helpers/createClass");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require("babel-runtime/helpers/possibleConstructorReturn");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require("babel-runtime/helpers/inherits");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require("react");
 
@@ -37,13 +51,13 @@ var _AmplifyMessageMap2 = _interopRequireDefault(_AmplifyMessageMap);
 
 var _awsAmplify = require("aws-amplify");
 
+var _awsAmplify2 = _interopRequireDefault(_awsAmplify);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var AUTH_STATES = exports.AUTH_STATES = {
   signIn: "signIn",
@@ -87,12 +101,12 @@ var defaultState = {
 };
 
 var Authenticator = function (_Component) {
-  _inherits(Authenticator, _Component);
+  (0, _inherits3["default"])(Authenticator, _Component);
 
   function Authenticator(props, context) {
-    _classCallCheck(this, Authenticator);
+    (0, _classCallCheck3["default"])(this, Authenticator);
 
-    var _this = _possibleConstructorReturn(this, (Authenticator.__proto__ || Object.getPrototypeOf(Authenticator)).call(this, props, context));
+    var _this = (0, _possibleConstructorReturn3["default"])(this, (Authenticator.__proto__ || Object.getPrototypeOf(Authenticator)).call(this, props, context));
 
     _this.handleStateChange = function (state, data) {
       if (state === _this.state.authState) {
@@ -125,6 +139,14 @@ var Authenticator = function (_Component) {
       );
     };
 
+    _awsAmplify2["default"].configure({
+      Auth: {
+        region: props.awsAuthRegion, // REQUIRED - Amazon Cognito Region
+        userPoolId: props.userPoolId, // OPTIONAL - Amazon Cognito User Pool ID
+        userPoolWebClientId: props.clientAppId // User Pool App Client ID
+      }
+    });
+
     _this.state = Object.assign({}, defaultState, {
       errorColor: !!_this.props.errorColor ? _this.props.errorColor : defaultState.errorColor
     });
@@ -132,7 +154,7 @@ var Authenticator = function (_Component) {
     return _this;
   }
 
-  _createClass(Authenticator, [{
+  (0, _createClass3["default"])(Authenticator, [{
     key: "componentDidMount",
     value: function () {
       function componentDidMount() {
@@ -167,10 +189,6 @@ var Authenticator = function (_Component) {
             authState = _state.authState,
             authData = _state.authData,
             errorColor = _state.errorColor;
-
-
-        console.log("errorColor: ", errorColor);
-
         var _props = this.props,
             hideDefault = _props.hideDefault,
             hide = _props.hide,
@@ -211,22 +229,26 @@ var Authenticator = function (_Component) {
       return render;
     }()
   }]);
-
   return Authenticator;
 }(_react.Component);
+
+Authenticator.propTypes = {
+  awsAuthRegion: _propTypes2["default"].string.isRequired,
+  userPoolId: _propTypes2["default"].string.isRequired,
+  clientAppId: _propTypes2["default"].string.isRequired
+};
 
 exports["default"] = (0, _index.withStyles)(styles)(Authenticator);
 
 var _AuthenticationContainer = function (_Component2) {
-  _inherits(_AuthenticationContainer, _Component2);
+  (0, _inherits3["default"])(_AuthenticationContainer, _Component2);
 
   function _AuthenticationContainer() {
-    _classCallCheck(this, _AuthenticationContainer);
-
-    return _possibleConstructorReturn(this, (_AuthenticationContainer.__proto__ || Object.getPrototypeOf(_AuthenticationContainer)).apply(this, arguments));
+    (0, _classCallCheck3["default"])(this, _AuthenticationContainer);
+    return (0, _possibleConstructorReturn3["default"])(this, (_AuthenticationContainer.__proto__ || Object.getPrototypeOf(_AuthenticationContainer)).apply(this, arguments));
   }
 
-  _createClass(_AuthenticationContainer, [{
+  (0, _createClass3["default"])(_AuthenticationContainer, [{
     key: "render",
     value: function () {
       function render() {
@@ -252,7 +274,6 @@ var _AuthenticationContainer = function (_Component2) {
       return render;
     }()
   }]);
-
   return _AuthenticationContainer;
 }(_react.Component);
 
