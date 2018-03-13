@@ -31,11 +31,15 @@ Basic Usage:
     }
   });
   
+  const REACT_APP_AWS_AUTH_REGION = process.env.REACT_APP_AWS_AUTH_REGION;
+  const REACT_APP_USER_POOL_ID = process.env.REACT_APP_USER_POOL_ID;
+  const REACT_APP_CLIENT_APP_ID = process.env.REACT_APP_CLIENT_APP_ID;
+  
   Amplify.configure({
     Auth: {
-      region: process.env.REACT_APP_AWS_AUTH_REGION, // REQUIRED - Amazon Cognito Region
-      userPoolId: process.env.REACT_APP_USER_POOL_ID, // OPTIONAL - Amazon Cognito User Pool ID
-      userPoolWebClientId: process.env.REACT_APP_CLIENT_APP_ID, // User Pool App Client ID
+      region: REACT_APP_AWS_AUTH_REGION, // REQUIRED - Amazon Cognito Region
+      userPoolId: REACT_APP_USER_POOL_ID, // OPTIONAL - Amazon Cognito User Pool ID
+      userPoolWebClientId: REACT_APP_CLIENT_APP_ID, // User Pool App Client ID
     },
   });
   
@@ -54,12 +58,18 @@ Basic Usage:
       return (
   
         <MuiThemeProvider theme={theme}>
-          <Router>
-            <Authenticator hideDefault={true} hide={[MainLayoutWrapper]}>
-              <MainLayoutWrapper/>
-            </Authenticator>
-          </Router>
-        </MuiThemeProvider>
+                <Router>
+                  <Authenticator
+                    hideDefault={true}
+                    hide={[MainLayoutWrapper]}
+                    awsAuthRegion={REACT_APP_AWS_AUTH_REGION}
+                    userPoolId={REACT_APP_USER_POOL_ID}
+                    clientAppId={REACT_APP_CLIENT_APP_ID}
+                  >
+                    <MainLayoutWrapper/>
+                  </Authenticator>
+                </Router>
+              </MuiThemeProvider>
   
       );
     }
