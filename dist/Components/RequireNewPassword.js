@@ -217,7 +217,8 @@ var RequireNewPassword = function (_AuthPiece) {
             classes = _props.classes,
             authState = _props.authState,
             hide = _props.hide,
-            errorColor = _props.errorColor;
+            errorColor = _props.errorColor,
+            background = _props.background;
 
         // if we are signed in then do not render
 
@@ -230,7 +231,7 @@ var RequireNewPassword = function (_AuthPiece) {
 
         return _react2["default"].createElement(
           _Authenticator.AuthenticationContainer,
-          null,
+          { background: background },
           _react2["default"].createElement(
             "div",
             { className: classes.root },
@@ -320,7 +321,8 @@ var RequireNewPassword = function (_AuthPiece) {
 RequireNewPassword.propTypes = {
   classes: _propTypes2["default"].object.isRequired,
   onStateChange: _propTypes2["default"].func.isRequired,
-  errorColor: _propTypes2["default"].string.isRequired
+  errorColor: _propTypes2["default"].string.isRequired,
+  background: _propTypes2["default"].string
 };
 
 exports["default"] = (0, _styles.withStyles)(styles)(RequireNewPassword);

@@ -76,7 +76,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var styles = function styles(theme) {
   return {
-    root: theme.mixins.gutters({
+    wrapper: theme.mixins.gutters({
       marginTop: theme.spacing.unit * 3
     }),
     textField: {
@@ -250,7 +250,8 @@ var SignIn = function (_AuthPiece) {
             classes = _props.classes,
             authState = _props.authState,
             hide = _props.hide,
-            errorColor = _props.errorColor;
+            errorColor = _props.errorColor,
+            background = _props.background;
 
         // if we are signed in then do not render
 
@@ -260,13 +261,12 @@ var SignIn = function (_AuthPiece) {
         if (!this.validAuthStates.includes(authState)) {
           return null;
         }
-
         return _react2["default"].createElement(
           _Authenticator.AuthenticationContainer,
-          null,
+          { background: background },
           _react2["default"].createElement(
             "div",
-            { className: classes.root },
+            { className: classes.wrapper },
             _react2["default"].createElement(
               _Typography2["default"],
               { variant: "title", className: classes.title },
@@ -366,7 +366,8 @@ var SignIn = function (_AuthPiece) {
 SignIn.propTypes = {
   classes: _propTypes2["default"].object.isRequired,
   onStateChange: _propTypes2["default"].func.isRequired,
-  errorColor: _propTypes2["default"].string.isRequired
+  errorColor: _propTypes2["default"].string.isRequired,
+  background: _propTypes2["default"].string
 };
 
 exports["default"] = (0, _styles.withStyles)(styles)(SignIn);

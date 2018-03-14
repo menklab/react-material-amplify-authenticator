@@ -108,7 +108,7 @@ class RequireNewPassword extends AuthPiece {
   render() {
 
     const {inputs, error, shake, busy} = this.state;
-    const {classes, authState, hide, errorColor} = this.props;
+    const {classes, authState, hide, errorColor, background} = this.props;
 
     // if we are signed in then do not render
     if (hide && hide.includes(RequireNewPassword)) {
@@ -119,7 +119,7 @@ class RequireNewPassword extends AuthPiece {
     }
 
     return (
-      <AuthenticationContainer>
+      <AuthenticationContainer background={background}>
         <div className={classes.root}>
           <Typography variant="title" className={classes.title}>New Password Required</Typography>
           <form
@@ -180,7 +180,8 @@ class RequireNewPassword extends AuthPiece {
 RequireNewPassword.propTypes = {
   classes: PropTypes.object.isRequired,
   onStateChange: PropTypes.func.isRequired,
-  errorColor: PropTypes.string.isRequired
+  errorColor: PropTypes.string.isRequired,
+  background: PropTypes.string
 };
 
 export default withStyles(styles)(RequireNewPassword);

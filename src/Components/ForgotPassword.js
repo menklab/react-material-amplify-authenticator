@@ -339,7 +339,7 @@ class ForgotPassword extends AuthPiece {
 
   render() {
     const {view} = this.state;
-    const {authState, hide, classes} = this.props;
+    const {authState, hide, classes, background} = this.props;
 
     // if we are signed in then do not render
     if (hide && hide.includes(ForgotPassword)) {
@@ -350,7 +350,7 @@ class ForgotPassword extends AuthPiece {
     }
 
     return (
-      <AuthenticationContainer>
+      <AuthenticationContainer background={background}>
         {view === FORGOT_PASSWORD_STATE.request_code ? this.requestView() : null}
         {view === FORGOT_PASSWORD_STATE.submit_reset ? this.submitView() : null}
         {view === FORGOT_PASSWORD_STATE.success ? this.successView() : null}
@@ -386,7 +386,8 @@ class ForgotPassword extends AuthPiece {
 ForgotPassword.propTypes = {
   classes: PropTypes.object.isRequired,
   onStateChange: PropTypes.func.isRequired,
-  errorColor: PropTypes.string.isRequired
+  errorColor: PropTypes.string.isRequired,
+  background: PropTypes.string
 };
 
 export default withStyles(styles)(ForgotPassword);

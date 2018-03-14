@@ -39,8 +39,6 @@ var _RequireNewPassword = require("./Components/RequireNewPassword");
 
 var _RequireNewPassword2 = _interopRequireDefault(_RequireNewPassword);
 
-var _Utils = require("./Utils");
-
 var _Paper = require("material-ui/Paper/Paper");
 
 var _Paper2 = _interopRequireDefault(_Paper);
@@ -79,8 +77,7 @@ var styles = function styles(theme) {
       width: "100%",
       height: "100%",
       overflow: "auto",
-      position: "absolute",
-      background: "linear-gradient(\n      240deg,\n      " + (0, _Utils.adjustRBGAlphaCss)(theme.palette.primary.dark, .80) + ",\n      " + (0, _Utils.adjustRBGAlphaCss)(theme.palette.primary.dark, .85) + "\n    );\n  "
+      position: "absolute"
     },
     authenticationPaper: {
       position: "absolute",
@@ -192,13 +189,16 @@ var Authenticator = function (_Component) {
         var _props = this.props,
             hideDefault = _props.hideDefault,
             hide = _props.hide,
-            federated = _props.federated;
+            federated = _props.federated,
+            background = _props.background;
 
-        if (!hide) {
-          hide = [];
+
+        var h = hide;
+        if (!h) {
+          h = [];
         }
         if (hideDefault) {
-          hide = hide.concat([_SignIn2["default"]]);
+          h = h.concat([_SignIn2["default"]]);
         }
 
         var props_children = this.props.children || [];
@@ -209,9 +209,10 @@ var Authenticator = function (_Component) {
           return _react2["default"].cloneElement(child, {
             authState: authState,
             authData: authData,
+            background: background,
             onStateChange: _this3.handleStateChange,
             onAuthEvent: _this3.handleAuthEvent,
-            hide: hide
+            hide: h
           });
         });
 
@@ -254,14 +255,15 @@ var _AuthenticationContainer = function (_Component2) {
       function render() {
         var _props2 = this.props,
             children = _props2.children,
-            classes = _props2.classes;
+            classes = _props2.classes,
+            background = _props2.background;
 
         return _react2["default"].createElement(
           "div",
           null,
           _react2["default"].createElement(
             "div",
-            { className: classes.authenticatorContainer },
+            { className: classes.authenticatorContainer, style: background ? { background: background } : null },
             _react2["default"].createElement(
               _Paper2["default"],
               { className: classes.authenticationPaper },
@@ -276,5 +278,9 @@ var _AuthenticationContainer = function (_Component2) {
   }]);
   return _AuthenticationContainer;
 }(_react.Component);
+
+Authenticator.propTypes = {
+  background: _propTypes2["default"].string
+};
 
 var AuthenticationContainer = exports.AuthenticationContainer = (0, _index.withStyles)(styles)(_AuthenticationContainer);

@@ -3,7 +3,6 @@ import {withStyles} from "material-ui/styles/index";
 import SignIn from "./Components/SignIn"
 import ForgotPassword from "./Components/ForgotPassword"
 import RequireNewPassword from './Components/RequireNewPassword'
-import {adjustRBGAlphaCss} from "./Utils";
 import Paper from "material-ui/Paper/Paper";
 import AmplifyMessageMap from 'aws-amplify-react/dist/AmplifyMessageMap';
 import Amplify, {Auth} from 'aws-amplify';
@@ -31,12 +30,6 @@ const styles = theme => ({
     height: "100%",
     overflow: "auto",
     position: "absolute",
-    background: `linear-gradient(
-      240deg,
-      ` + adjustRBGAlphaCss(theme.palette.primary.dark, .80) + `,
-      ` + adjustRBGAlphaCss(theme.palette.primary.dark, .85) + `
-    );
-  `
   },
   authenticationPaper: {
     position: "absolute",
@@ -120,13 +113,14 @@ class Authenticator extends Component {
 
   render() {
     const {authState, authData, errorColor} = this.state;
+    const {hideDefault, hide, federated, background} = this.props;
 
-    let {hideDefault, hide, federated} = this.props;
-    if (!hide) {
-      hide = [];
+    let h = hide;
+    if (!h) {
+      h = [];
     }
     if (hideDefault) {
-      hide = hide.concat([
+      h = h.concat([
         SignIn
       ]);
     }
@@ -143,9 +137,10 @@ class Authenticator extends Component {
       return React.cloneElement(child, {
         authState: authState,
         authData: authData,
+        background: background,
         onStateChange: this.handleStateChange,
         onAuthEvent: this.handleAuthEvent,
-        hide: hide
+        hide: h
       });
     });
 
@@ -173,10 +168,10 @@ export default withStyles(styles)(Authenticator);
 class _AuthenticationContainer extends Component {
 
   render() {
-    const {children, classes} = this.props;
+    const {children, classes, background} = this.props;
     return (
       <div>
-        <div className={classes.authenticatorContainer}>
+        <div className={classes.authenticatorContainer} style={background ? {background: background} : null}>
           <Paper className={classes.authenticationPaper}>
             {children}
           </Paper>
@@ -185,6 +180,10 @@ class _AuthenticationContainer extends Component {
     )
   }
 }
+
+Authenticator.propTypes = {
+  background: PropTypes.string,
+};
 
 export const AuthenticationContainer = withStyles(styles)(_AuthenticationContainer);
 

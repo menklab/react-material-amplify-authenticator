@@ -45,7 +45,6 @@
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "classnames": "^2.2.5",
-    "hex-rgb": "^2.0.0",
     "material-ui": "^1.0.0-beta.36",
     "material-ui-icons": "^1.0.0-beta.36",
     "prop-types": "^15.6.1",

@@ -12,7 +12,7 @@ import Button from 'material-ui/Button'
 import {AUTH_STATES, AuthenticationContainer} from '../Authenticator'
 
 const styles = theme => ({
-  root: theme.mixins.gutters({
+  wrapper: theme.mixins.gutters({
     marginTop: theme.spacing.unit * 3,
   }),
   textField: {
@@ -138,7 +138,7 @@ class SignIn extends AuthPiece {
 
   render() {
     const {inputs, error, shake, busy} = this.state;
-    const {classes, authState, hide, errorColor} = this.props;
+    const {classes, authState, hide, errorColor, background} = this.props;
 
     // if we are signed in then do not render
     if (hide && hide.includes(SignIn)) {
@@ -147,10 +147,9 @@ class SignIn extends AuthPiece {
     if (!this.validAuthStates.includes(authState)) {
       return null;
     }
-
     return (
-      <AuthenticationContainer>
-        <div className={classes.root}>
+      <AuthenticationContainer background={background}>
+        <div className={classes.wrapper}>
           <Typography variant="title" className={classes.title}>Log In To Your Account</Typography>
           <form
             className={classes.form}
@@ -224,7 +223,8 @@ class SignIn extends AuthPiece {
 SignIn.propTypes = {
   classes: PropTypes.object.isRequired,
   onStateChange: PropTypes.func.isRequired,
-  errorColor: PropTypes.string.isRequired
+  errorColor: PropTypes.string.isRequired,
+  background: PropTypes.string
 };
 
 export default withStyles(styles)(SignIn);

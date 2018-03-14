@@ -538,7 +538,8 @@ var ForgotPassword = function (_AuthPiece) {
         var _props = this.props,
             authState = _props.authState,
             hide = _props.hide,
-            classes = _props.classes;
+            classes = _props.classes,
+            background = _props.background;
 
         // if we are signed in then do not render
 
@@ -551,7 +552,7 @@ var ForgotPassword = function (_AuthPiece) {
 
         return _react2["default"].createElement(
           _Authenticator.AuthenticationContainer,
-          null,
+          { background: background },
           view === FORGOT_PASSWORD_STATE.request_code ? this.requestView() : null,
           view === FORGOT_PASSWORD_STATE.submit_reset ? this.submitView() : null,
           view === FORGOT_PASSWORD_STATE.success ? this.successView() : null,
@@ -608,7 +609,8 @@ var ForgotPassword = function (_AuthPiece) {
 ForgotPassword.propTypes = {
   classes: _propTypes2["default"].object.isRequired,
   onStateChange: _propTypes2["default"].func.isRequired,
-  errorColor: _propTypes2["default"].string.isRequired
+  errorColor: _propTypes2["default"].string.isRequired,
+  background: _propTypes2["default"].string
 };
 
 exports["default"] = (0, _styles.withStyles)(styles)(ForgotPassword);
