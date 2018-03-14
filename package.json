@@ -1,6 +1,6 @@
 {
   "name": "react-material-amplify-authenticator",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": {
     "name": "Menklab, LLC",
     "email": "code@menklab.com"
@@ -54,6 +54,5 @@
   "peerDependencies": {
     "react": "^16.1.1"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
