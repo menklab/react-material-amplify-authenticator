@@ -113,17 +113,17 @@ class Authenticator extends Component {
 
   render() {
     const {authState, authData, errorColor} = this.state;
-    const {hideDefault, hide, federated, background} = this.props;
 
-    let h = hide;
-    if (!h) {
-      h = [];
+    let {hideDefault, hide, federated, background} = this.props;
+    if (!hide) {
+      hide = [];
     }
     if (hideDefault) {
-      h = h.concat([
+      hide = hide.concat([
         SignIn
       ]);
     }
+
 
     const props_children = this.props.children || [];
     const default_children = [
@@ -140,7 +140,7 @@ class Authenticator extends Component {
         background: background,
         onStateChange: this.handleStateChange,
         onAuthEvent: this.handleAuthEvent,
-        hide: h
+        hide: hide
       });
     });
 

@@ -192,13 +192,11 @@ var Authenticator = function (_Component) {
             federated = _props.federated,
             background = _props.background;
 
-
-        var h = hide;
-        if (!h) {
-          h = [];
+        if (!hide) {
+          hide = [];
         }
         if (hideDefault) {
-          h = h.concat([_SignIn2["default"]]);
+          hide = hide.concat([_SignIn2["default"]]);
         }
 
         var props_children = this.props.children || [];
@@ -212,7 +210,7 @@ var Authenticator = function (_Component) {
             background: background,
             onStateChange: _this3.handleStateChange,
             onAuthEvent: _this3.handleAuthEvent,
-            hide: h
+            hide: hide
           });
         });
 
