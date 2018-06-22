@@ -190,7 +190,8 @@ var Authenticator = function (_Component) {
             hideDefault = _props.hideDefault,
             hide = _props.hide,
             federated = _props.federated,
-            background = _props.background;
+            background = _props.background,
+            clearLocalStorage = _props.clearLocalStorage;
 
         if (!hide) {
           hide = [];
@@ -200,7 +201,7 @@ var Authenticator = function (_Component) {
         }
 
         var props_children = this.props.children || [];
-        var default_children = [_react2["default"].createElement(_SignIn2["default"], { federated: federated, errorColor: errorColor }), _react2["default"].createElement(_RequireNewPassword2["default"], { errorColor: errorColor }), _react2["default"].createElement(_ForgotPassword2["default"], { errorColor: errorColor })];
+        var default_children = [_react2["default"].createElement(_SignIn2["default"], { federated: federated, errorColor: errorColor, clearLocalStorage: clearLocalStorage }), _react2["default"].createElement(_RequireNewPassword2["default"], { errorColor: errorColor }), _react2["default"].createElement(_ForgotPassword2["default"], { errorColor: errorColor })];
 
         var children = default_children.concat(props_children);
         var render_children = _react2["default"].Children.map(children, function (child) {

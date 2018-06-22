@@ -60,6 +60,7 @@ class SignIn extends AuthPiece {
   }
 
   checkContact(user) {
+    console.log("Check User: ", user);
     Auth.verifiedContact(user)
       .then(data => {
         if (!JS.isEmpty(data.verified)) {
@@ -75,8 +76,17 @@ class SignIn extends AuthPiece {
   }
 
   handleSubmit = async e => {
+    window.LOG_LEVEL = 'DEBUG';
     e.stopPropagation();
     e.preventDefault();
+
+    let cls = this.props.clearLocalStorage;
+    if (!!cls) {
+      for (let i = 0; i < cls.length; i++) {
+        console.log("clear local storage: ", cls[i]);
+        window.localStorage.removeItem(cls[i]);
+      }
+    }
 
     this.setState({
       busy: true,
@@ -96,7 +106,6 @@ class SignIn extends AuthPiece {
         if (user.challengeName === 'SMS_MFA') {
           this.changeState(AUTH_STATES.confirmSignIn, user);
         } else if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-
           this.changeState(AUTH_STATES.requireNewPassword, user);
         } else {
           this.checkContact(user);

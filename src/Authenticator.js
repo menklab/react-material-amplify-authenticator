@@ -111,10 +111,11 @@ class Authenticator extends Component {
       })
   }
 
+
   render() {
     const {authState, authData, errorColor} = this.state;
 
-    let {hideDefault, hide, federated, background} = this.props;
+    let {hideDefault, hide, federated, background, clearLocalStorage} = this.props;
     if (!hide) {
       hide = [];
     }
@@ -127,7 +128,7 @@ class Authenticator extends Component {
 
     const props_children = this.props.children || [];
     const default_children = [
-      <SignIn federated={federated} errorColor={errorColor}/>,
+      <SignIn federated={federated} errorColor={errorColor} clearLocalStorage={clearLocalStorage}/>,
       <RequireNewPassword errorColor={errorColor}/>,
       <ForgotPassword errorColor={errorColor}/>
     ];

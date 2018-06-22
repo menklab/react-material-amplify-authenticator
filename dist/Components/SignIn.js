@@ -126,14 +126,24 @@ var SignIn = function (_AuthPiece) {
     _this.handleSubmit = function () {
       var _ref = (0, _asyncToGenerator3["default"])( /*#__PURE__*/_regenerator2["default"].mark(function () {
         function _callee(e) {
-          var inputs;
+          var cls, i, inputs;
           return _regenerator2["default"].wrap(function () {
             function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
                   case 0:
+                    window.LOG_LEVEL = 'DEBUG';
                     e.stopPropagation();
                     e.preventDefault();
+
+                    cls = _this.props.clearLocalStorage;
+
+                    if (!!cls) {
+                      for (i = 0; i < cls.length; i++) {
+                        console.log("clear local storage: ", cls[i]);
+                        window.localStorage.removeItem(cls[i]);
+                      }
+                    }
 
                     _this.setState({
                       busy: true,
@@ -151,7 +161,6 @@ var SignIn = function (_AuthPiece) {
                       if (user.challengeName === 'SMS_MFA') {
                         _this.changeState(_Authenticator.AUTH_STATES.confirmSignIn, user);
                       } else if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-
                         _this.changeState(_Authenticator.AUTH_STATES.requireNewPassword, user);
                       } else {
                         _this.checkContact(user);
@@ -169,7 +178,7 @@ var SignIn = function (_AuthPiece) {
                       }.bind(_this), 1000);
                     });
 
-                  case 5:
+                  case 8:
                   case "end":
                     return _context.stop();
                 }
@@ -221,6 +230,7 @@ var SignIn = function (_AuthPiece) {
       function checkContact(user) {
         var _this3 = this;
 
+        console.log("Check User: ", user);
         _awsAmplify.Auth.verifiedContact(user).then(function (data) {
           if (!_awsAmplify.JS.isEmpty(data.verified)) {
             _this3.changeState(_Authenticator.AUTH_STATES.signedIn, user);
