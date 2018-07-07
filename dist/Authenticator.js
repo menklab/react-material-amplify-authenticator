@@ -25,7 +25,7 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _index = require("material-ui/styles/index");
+var _index = require("@material-ui/core/styles/index");
 
 var _SignIn = require("./Components/SignIn");
 
@@ -39,7 +39,7 @@ var _RequireNewPassword = require("./Components/RequireNewPassword");
 
 var _RequireNewPassword2 = _interopRequireDefault(_RequireNewPassword);
 
-var _Paper = require("material-ui/Paper/Paper");
+var _Paper = require("@material-ui/core/Paper/Paper");
 
 var _Paper2 = _interopRequireDefault(_Paper);
 
