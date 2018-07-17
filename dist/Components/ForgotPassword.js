@@ -46,27 +46,27 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _Auth = require("aws-amplify-react/dist/Auth");
 
-var _styles = require("material-ui/styles");
+var _styles = require("@material-ui/core/styles");
 
-var _TextField = require("material-ui/TextField");
+var _TextField = require("@material-ui/core/TextField");
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
-var _Typography = require("material-ui/Typography");
+var _Typography = require("@material-ui/core/Typography");
 
 var _Typography2 = _interopRequireDefault(_Typography);
 
-var _Button = require("material-ui/Button");
+var _Button = require("@material-ui/core/Button");
 
 var _Button2 = _interopRequireDefault(_Button);
 
 var _awsAmplify = require("aws-amplify");
 
-var _Paper = require("material-ui/Paper/Paper");
+var _Paper = require("@material-ui/core/Paper/Paper");
 
 var _Paper2 = _interopRequireDefault(_Paper);
 
-var _Zoom = require("material-ui/transitions/Zoom");
+var _Zoom = require("@material-ui/core/Zoom");
 
 var _Zoom2 = _interopRequireDefault(_Zoom);
 

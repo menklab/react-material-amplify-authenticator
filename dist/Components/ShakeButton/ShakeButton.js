@@ -32,9 +32,9 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _styles = require("material-ui/styles");
+var _styles = require("@material-ui/core/styles");
 
-var _Button = require("material-ui/Button");
+var _Button = require("@material-ui/core/Button");
 
 var _Button2 = _interopRequireDefault(_Button);
 
@@ -42,7 +42,9 @@ var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Progress = require("material-ui/Progress");
+var _CircularProgress = require("@material-ui/core/CircularProgress");
+
+var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
 
 require("./shakeButton.css");
 
@@ -88,7 +90,7 @@ var ShakeButton = function (_React$Component) {
           (0, _extends3["default"])({}, other, {
             className: (this.state.shake ? "btn-animate-shake " : "") + this.props.className
           }),
-          this.state.busy ? _react2["default"].createElement(_Progress.CircularProgress, { className: classes.indicatorStyle, size: 20 }) : children
+          this.state.busy ? _react2["default"].createElement(_CircularProgress2["default"], { className: classes.indicatorStyle, size: 20 }) : children
         );
       }
 

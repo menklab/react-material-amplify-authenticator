@@ -28,23 +28,23 @@ var _awsAmplify = require('aws-amplify');
 
 var _Auth = require('aws-amplify-react/dist/Auth');
 
-var _Button = require('material-ui/Button/Button');
+var _Button = require('@material-ui/core/Button/Button');
 
 var _Button2 = _interopRequireDefault(_Button);
 
-var _Snackbar = require('material-ui/Snackbar');
+var _Snackbar = require('@material-ui/core/Snackbar');
 
 var _Snackbar2 = _interopRequireDefault(_Snackbar);
 
-var _IconButton = require('material-ui/IconButton');
+var _IconButton = require('@material-ui/core/IconButton');
 
 var _IconButton2 = _interopRequireDefault(_IconButton);
 
-var _Close = require('material-ui-icons/Close');
+var _Close = require('@material-ui/icons/Close');
 
 var _Close2 = _interopRequireDefault(_Close);
 
-var _styles = require('material-ui/styles');
+var _styles = require('@material-ui/core/styles');
 
 var _propTypes = require('prop-types');
 

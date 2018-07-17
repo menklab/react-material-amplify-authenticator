@@ -1,9 +1,9 @@
 import React, {Component} from "react";
-import {withStyles} from "material-ui/styles/index";
+import {withStyles} from "@material-ui/core/styles/index";
 import SignIn from "./Components/SignIn"
 import ForgotPassword from "./Components/ForgotPassword"
 import RequireNewPassword from './Components/RequireNewPassword'
-import Paper from "material-ui/Paper/Paper";
+import Paper from "@material-ui/core/Paper/Paper";
 import AmplifyMessageMap from 'aws-amplify-react/dist/AmplifyMessageMap';
 import Amplify, {Auth} from 'aws-amplify';
 import PropTypes from 'prop-types';

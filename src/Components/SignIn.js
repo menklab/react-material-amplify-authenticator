@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {AuthPiece} from 'aws-amplify-react/dist/Auth';
-import {withStyles} from "material-ui/styles";
-import TextField from "material-ui/TextField";
-import Typography from "material-ui/Typography";
+import {withStyles} from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 import {Auth, JS} from 'aws-amplify';
-import Paper from "material-ui/Paper/Paper";
-import Zoom from 'material-ui/transitions/Zoom';
+import Paper from "@material-ui/core/Paper/Paper";
+import Zoom from '@material-ui/core/Zoom';
 import ShakeButton from './ShakeButton/ShakeButton'
-import Button from 'material-ui/Button'
+import Button from '@material-ui/core/Button'
 import {AUTH_STATES, AuthenticationContainer} from '../Authenticator'
 
 const styles = theme => ({
