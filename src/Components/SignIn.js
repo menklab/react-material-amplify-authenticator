@@ -59,11 +59,13 @@ class SignIn extends AuthPiece {
 
   }
 
-  checkContact(user) {
-    console.log("Check User: ", user);
+  checkContact = (user) => {
+    this.changeState(AUTH_STATES.signedIn, user);
     Auth.verifiedContact(user)
+
       .then(data => {
         if (!JS.isEmpty(data.verified)) {
+          // this.changeState('signedIn');
           this.changeState(AUTH_STATES.signedIn, user);
         } else {
           user = Object.assign(user, data);
@@ -75,15 +77,13 @@ class SignIn extends AuthPiece {
       });
   }
 
-  handleSubmit = async e => {
-    window.LOG_LEVEL = 'DEBUG';
+  handleSubmit = e => {
     e.stopPropagation();
     e.preventDefault();
 
     let cls = this.props.clearLocalStorage;
     if (!!cls) {
       for (let i = 0; i < cls.length; i++) {
-        console.log("clear local storage: ", cls[i]);
         window.localStorage.removeItem(cls[i]);
       }
     }

@@ -8,14 +8,6 @@ var _defineProperty2 = require("babel-runtime/helpers/defineProperty");
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _regenerator = require("babel-runtime/regenerator");
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var _asyncToGenerator2 = require("babel-runtime/helpers/asyncToGenerator");
-
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
 var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -117,85 +109,69 @@ var SignIn = function (_AuthPiece) {
   (0, _inherits3["default"])(SignIn, _AuthPiece);
 
   function SignIn(props, context) {
-    var _this2 = this;
-
     (0, _classCallCheck3["default"])(this, SignIn);
 
     var _this = (0, _possibleConstructorReturn3["default"])(this, (SignIn.__proto__ || Object.getPrototypeOf(SignIn)).call(this, props, context));
 
-    _this.handleSubmit = function () {
-      var _ref = (0, _asyncToGenerator3["default"])( /*#__PURE__*/_regenerator2["default"].mark(function () {
-        function _callee(e) {
-          var cls, i, inputs;
-          return _regenerator2["default"].wrap(function () {
-            function _callee$(_context) {
-              while (1) {
-                switch (_context.prev = _context.next) {
-                  case 0:
-                    window.LOG_LEVEL = 'DEBUG';
-                    e.stopPropagation();
-                    e.preventDefault();
-
-                    cls = _this.props.clearLocalStorage;
-
-                    if (!!cls) {
-                      for (i = 0; i < cls.length; i++) {
-                        console.log("clear local storage: ", cls[i]);
-                        window.localStorage.removeItem(cls[i]);
-                      }
-                    }
-
-                    _this.setState({
-                      busy: true,
-                      shake: false,
-                      error: null
-                    });
-                    inputs = _this.state.inputs;
-
-                    _awsAmplify.Auth.signIn(inputs.username, inputs.password).then(function (user) {
-                      _this.setState(Object.assign({}, defaultState, {
-                        inputs: Object.assign({}, defaultState.inputs, {
-                          username: inputs.username
-                        })
-                      }));
-                      if (user.challengeName === 'SMS_MFA') {
-                        _this.changeState(_Authenticator.AUTH_STATES.confirmSignIn, user);
-                      } else if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-                        _this.changeState(_Authenticator.AUTH_STATES.requireNewPassword, user);
-                      } else {
-                        _this.checkContact(user);
-                      }
-                    })["catch"](function (err) {
-                      _this.setState(Object.assign({}, defaultState, {
-                        shake: true,
-                        error: err,
-                        inputs: Object.assign({}, defaultState.inputs, {
-                          username: inputs.username
-                        })
-                      }));
-                      setTimeout(function () {
-                        this.setState({ shake: false });
-                      }.bind(_this), 1000);
-                    });
-
-                  case 8:
-                  case "end":
-                    return _context.stop();
-                }
-              }
-            }
-
-            return _callee$;
-          }(), _callee, _this2);
+    _this.checkContact = function (user) {
+      _this.changeState(_Authenticator.AUTH_STATES.signedIn, user);
+      _awsAmplify.Auth.verifiedContact(user).then(function (data) {
+        if (!_awsAmplify.JS.isEmpty(data.verified)) {
+          // this.changeState('signedIn');
+          _this.changeState(_Authenticator.AUTH_STATES.signedIn, user);
+        } else {
+          user = Object.assign(user, data);
+          _this.changeState(_Authenticator.AUTH_STATES.verifyContact, user);
         }
+      })["catch"](function (err) {
+        _this.handleStateChange(_Authenticator.AUTH_STATES.signIn);
+      });
+    };
 
-        return _callee;
-      }()));
+    _this.handleSubmit = function (e) {
+      e.stopPropagation();
+      e.preventDefault();
 
-      return function (_x) {
-        return _ref.apply(this, arguments);
-      };
-    }();
+      var cls = _this.props.clearLocalStorage;
+      if (!!cls) {
+        for (var i = 0; i < cls.length; i++) {
+          window.localStorage.removeItem(cls[i]);
+        }
+      }
+
+      _this.setState({
+        busy: true,
+        shake: false,
+        error: null
+      });
+      var inputs = _this.state.inputs;
+
+      _awsAmplify.Auth.signIn(inputs.username, inputs.password).then(function (user) {
+        _this.setState(Object.assign({}, defaultState, {
+          inputs: Object.assign({}, defaultState.inputs, {
+            username: inputs.username
+          })
+        }));
+        if (user.challengeName === 'SMS_MFA') {
+          _this.changeState(_Authenticator.AUTH_STATES.confirmSignIn, user);
+        } else if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
+          _this.changeState(_Authenticator.AUTH_STATES.requireNewPassword, user);
+        } else {
+          _this.checkContact(user);
+        }
+      })["catch"](function (err) {
+        _this.setState(Object.assign({}, defaultState, {
+          shake: true,
+          error: err,
+          inputs: Object.assign({}, defaultState.inputs, {
+            username: inputs.username
+          })
+        }));
+        setTimeout(function () {
+          this.setState({ shake: false });
+        }.bind(_this), 1000);
+      });
+    };
 
     _this.validForm = function () {
       var inputs = _this.state.inputs;
@@ -225,31 +201,10 @@ var SignIn = function (_AuthPiece) {
   }
 
   (0, _createClass3["default"])(SignIn, [{
-    key: "checkContact",
-    value: function () {
-      function checkContact(user) {
-        var _this3 = this;
-
-        console.log("Check User: ", user);
-        _awsAmplify.Auth.verifiedContact(user).then(function (data) {
-          if (!_awsAmplify.JS.isEmpty(data.verified)) {
-            _this3.changeState(_Authenticator.AUTH_STATES.signedIn, user);
-          } else {
-            user = Object.assign(user, data);
-            _this3.changeState(_Authenticator.AUTH_STATES.verifyContact, user);
-          }
-        })["catch"](function (err) {
-          _this3.handleStateChange(_Authenticator.AUTH_STATES.signIn);
-        });
-      }
-
-      return checkContact;
-    }()
-  }, {
     key: "render",
     value: function () {
       function render() {
-        var _this4 = this;
+        var _this2 = this;
 
         var _state = this.state,
             inputs = _state.inputs,
@@ -355,7 +310,7 @@ var SignIn = function (_AuthPiece) {
                 onClick: function () {
                   function onClick(e) {
                     e.preventDefault();
-                    _this4.changeState(_Authenticator.AUTH_STATES.forgotPassword);
+                    _this2.changeState(_Authenticator.AUTH_STATES.forgotPassword);
                   }
 
                   return onClick;

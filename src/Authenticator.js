@@ -106,8 +106,16 @@ class Authenticator extends Component {
     }
 
     let permissions = this.state.permissions;
-    if (state === AUTH_STATES.signedIn && !!data) {
+    if (state === AUTH_STATES.signedIn &&
+      !!data &&
+      !!data.signInUserSession &&
+      !!data.signInUserSession.accessToken &&
+      !!data.signInUserSession.accessToken.payload &&
+      !!data.signInUserSession.accessToken.payload["cognito:groups"]) {
       permissions = data.signInUserSession.accessToken.payload["cognito:groups"];
+    }
+    else {
+      permissions = [];
     }
 
     this.setState({authState: state, authData: data, permissions: [...permissions], error: null});
