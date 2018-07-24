@@ -94,7 +94,7 @@ class SignIn extends AuthPiece {
       error: null
     });
     const {inputs} = this.state;
-    Auth.signIn(inputs.username, inputs.password)
+    Auth.signIn(inputs.username.toLowerCase(), inputs.password)
       .then(user => {
         this.setState({
           ...defaultState,

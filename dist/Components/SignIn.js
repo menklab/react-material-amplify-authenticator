@@ -146,7 +146,7 @@ var SignIn = function (_AuthPiece) {
       });
       var inputs = _this.state.inputs;
 
-      _awsAmplify.Auth.signIn(inputs.username, inputs.password).then(function (user) {
+      _awsAmplify.Auth.signIn(inputs.username.toLowerCase(), inputs.password).then(function (user) {
         _this.setState(Object.assign({}, defaultState, {
           inputs: Object.assign({}, defaultState.inputs, {
             username: inputs.username
