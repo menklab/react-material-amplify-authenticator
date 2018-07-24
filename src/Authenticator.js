@@ -9,7 +9,6 @@ import Amplify, {Auth} from 'aws-amplify';
 import PropTypes from 'prop-types';
 
 
-
 export const AUTH_STATES = {
   signIn: "signIn",
   signUp: "signUp",
@@ -37,7 +36,7 @@ const styles = theme => ({
     marginTop: "80px",
     width: "50%",
     maxWidth: "450px",
-    minWidth: "400px",
+    minWidth: "300px",
   }
 });
 
@@ -45,8 +44,34 @@ const defaultState = {
   errorColor: "#ff5722",
   authState: AUTH_STATES.signIn,
   authData: null,
-  error: null
+  error: null,
+  permissions: []
 };
+
+export function PermissionsRequireOne(permissions, groups) {
+  for (let p = 0; p < permissions.length; p++) {
+    for (let g = 0; g < groups.length; g++) {
+      if (permissions[p] === groups[g]) {
+        return true
+      }
+    }
+  }
+  return false
+}
+
+export function PermissionsRequireAll(permissions, groups) {
+
+  let notAll = permissions.length;
+  for (let p = 0; p < permissions.length; p++) {
+    for (let g = 0; g < groups.length; g++) {
+      if (permissions[p] === groups[g]) {
+        notAll--;
+      }
+    }
+  }
+
+  return notAll < 0
+}
 
 class Authenticator extends Component {
   constructor(props, context) {
@@ -55,7 +80,7 @@ class Authenticator extends Component {
     Amplify.configure({
       Auth: {
         region: props.awsAuthRegion, // REQUIRED - Amazon Cognito Region
-        userPoolId: props.userPoolId , // OPTIONAL - Amazon Cognito User Pool ID
+        userPoolId: props.userPoolId, // OPTIONAL - Amazon Cognito User Pool ID
         userPoolWebClientId: props.clientAppId, // User Pool App Client ID
       },
     });
@@ -80,7 +105,12 @@ class Authenticator extends Component {
       state = AUTH_STATES.signIn;
     }
 
-    this.setState({authState: state, authData: data, error: null});
+    let permissions = this.state.permissions;
+    if (state === AUTH_STATES.signedIn && !!data) {
+      permissions = data.signInUserSession.accessToken.payload["cognito:groups"];
+    }
+
+    this.setState({authState: state, authData: data, permissions: [...permissions], error: null});
     if (this.props.onStateChange) {
       this.props.onStateChange(state, data);
     }
@@ -113,7 +143,7 @@ class Authenticator extends Component {
 
 
   render() {
-    const {authState, authData, errorColor} = this.state;
+    const {authState, authData, permissions, errorColor} = this.state;
 
     let {hideDefault, hide, federated, background, clearLocalStorage} = this.props;
     if (!hide) {
@@ -139,6 +169,7 @@ class Authenticator extends Component {
         authState: authState,
         authData: authData,
         background: background,
+        permissions: permissions,
         onStateChange: this.handleStateChange,
         onAuthEvent: this.handleAuthEvent,
         hide: hide
@@ -157,6 +188,7 @@ class Authenticator extends Component {
     )
   }
 }
+
 Authenticator.propTypes = {
   awsAuthRegion: PropTypes.string.isRequired,
   userPoolId: PropTypes.string.isRequired,

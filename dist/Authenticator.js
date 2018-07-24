@@ -5,6 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.AuthenticationContainer = exports.AUTH_STATES = undefined;
 
+var _toConsumableArray2 = require("babel-runtime/helpers/toConsumableArray");
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
 var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -20,6 +24,9 @@ var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorRet
 var _inherits2 = require("babel-runtime/helpers/inherits");
 
 var _inherits3 = _interopRequireDefault(_inherits2);
+
+exports.PermissionsRequireOne = PermissionsRequireOne;
+exports.PermissionsRequireAll = PermissionsRequireAll;
 
 var _react = require("react");
 
@@ -85,7 +92,7 @@ var styles = function styles(theme) {
       marginTop: "80px",
       width: "50%",
       maxWidth: "450px",
-      minWidth: "400px"
+      minWidth: "300px"
     }
   };
 };
@@ -94,8 +101,34 @@ var defaultState = {
   errorColor: "#ff5722",
   authState: AUTH_STATES.signIn,
   authData: null,
-  error: null
+  error: null,
+  permissions: []
 };
+
+function PermissionsRequireOne(permissions, groups) {
+  for (var p = 0; p < permissions.length; p++) {
+    for (var g = 0; g < groups.length; g++) {
+      if (permissions[p] === groups[g]) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function PermissionsRequireAll(permissions, groups) {
+
+  var notAll = permissions.length;
+  for (var p = 0; p < permissions.length; p++) {
+    for (var g = 0; g < groups.length; g++) {
+      if (permissions[p] === groups[g]) {
+        notAll--;
+      }
+    }
+  }
+
+  return notAll < 0;
+}
 
 var Authenticator = function (_Component) {
   (0, _inherits3["default"])(Authenticator, _Component);
@@ -114,7 +147,12 @@ var Authenticator = function (_Component) {
         state = AUTH_STATES.signIn;
       }
 
-      _this.setState({ authState: state, authData: data, error: null });
+      var permissions = _this.state.permissions;
+      if (state === AUTH_STATES.signedIn && !!data) {
+        permissions = data.signInUserSession.accessToken.payload["cognito:groups"];
+      }
+
+      _this.setState({ authState: state, authData: data, permissions: [].concat((0, _toConsumableArray3["default"])(permissions)), error: null });
       if (_this.props.onStateChange) {
         _this.props.onStateChange(state, data);
       }
@@ -185,6 +223,7 @@ var Authenticator = function (_Component) {
         var _state = this.state,
             authState = _state.authState,
             authData = _state.authData,
+            permissions = _state.permissions,
             errorColor = _state.errorColor;
         var _props = this.props,
             hideDefault = _props.hideDefault,
@@ -209,6 +248,7 @@ var Authenticator = function (_Component) {
             authState: authState,
             authData: authData,
             background: background,
+            permissions: permissions,
             onStateChange: _this3.handleStateChange,
             onAuthEvent: _this3.handleAuthEvent,
             hide: hide

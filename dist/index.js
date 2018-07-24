@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.AUTH_STATES = exports.AuthenticationContainer = undefined;
+exports.PermissionsRequireAll = exports.PermissionsRequireOne = exports.AUTH_STATES = exports.AuthenticationContainer = undefined;
 
 var _Authenticator = require('./Authenticator');
 
@@ -22,6 +22,26 @@ Object.defineProperty(exports, 'AUTH_STATES', {
   get: function () {
     function get() {
       return _Authenticator.AUTH_STATES;
+    }
+
+    return get;
+  }()
+});
+Object.defineProperty(exports, 'PermissionsRequireOne', {
+  enumerable: true,
+  get: function () {
+    function get() {
+      return _Authenticator.PermissionsRequireOne;
+    }
+
+    return get;
+  }()
+});
+Object.defineProperty(exports, 'PermissionsRequireAll', {
+  enumerable: true,
+  get: function () {
+    function get() {
+      return _Authenticator.PermissionsRequireAll;
     }
 
     return get;
