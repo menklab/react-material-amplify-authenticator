@@ -1,4 +1,4 @@
-# react-material-datatable
+# react-material-amplify-authenticator
 A basic aws amplify authenticator for reactjs built on material ui.
 
 
