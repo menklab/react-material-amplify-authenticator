@@ -102,7 +102,8 @@ var defaultState = {
   authState: AUTH_STATES.signIn,
   authData: null,
   error: null,
-  permissions: []
+  permissions: [],
+  attributes: {}
 };
 
 function PermissionsRequireOne(permissions, groups) {
@@ -117,7 +118,6 @@ function PermissionsRequireOne(permissions, groups) {
 }
 
 function PermissionsRequireAll(permissions, groups) {
-
   var notAll = permissions.length;
   for (var p = 0; p < permissions.length; p++) {
     for (var g = 0; g < groups.length; g++) {
@@ -126,7 +126,6 @@ function PermissionsRequireAll(permissions, groups) {
       }
     }
   }
-
   return notAll < 0;
 }
 
@@ -154,7 +153,14 @@ var Authenticator = function (_Component) {
         permissions = [];
       }
 
-      _this.setState({ authState: state, authData: data, permissions: [].concat((0, _toConsumableArray3["default"])(permissions)), error: null });
+      var attributes = _this.state.attributes;
+      if (state === AUTH_STATES.signedIn && !!data && data.attributes) {
+        attributes = data.attributes;
+      } else {
+        attributes = {};
+      }
+
+      _this.setState({ authState: state, authData: data, permissions: [].concat((0, _toConsumableArray3["default"])(permissions)), attributes: attributes, error: null });
       if (_this.props.onStateChange) {
         _this.props.onStateChange(state, data);
       }
@@ -184,10 +190,9 @@ var Authenticator = function (_Component) {
       }
     });
 
-    _this.state = Object.assign({}, defaultState, {
+    _this.state = Object.assign({}, Object.assign({}, defaultState), {
       errorColor: !!_this.props.errorColor ? _this.props.errorColor : defaultState.errorColor
     });
-    _this.state = defaultState;
     return _this;
   }
 
@@ -226,6 +231,7 @@ var Authenticator = function (_Component) {
             authState = _state.authState,
             authData = _state.authData,
             permissions = _state.permissions,
+            attributes = _state.attributes,
             errorColor = _state.errorColor;
         var _props = this.props,
             hideDefault = _props.hideDefault,
@@ -251,6 +257,7 @@ var Authenticator = function (_Component) {
             authData: authData,
             background: background,
             permissions: permissions,
+            attributes: attributes,
             onStateChange: _this3.handleStateChange,
             onAuthEvent: _this3.handleAuthEvent,
             hide: hide

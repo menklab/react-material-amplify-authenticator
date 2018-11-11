@@ -8,7 +8,6 @@ import AmplifyMessageMap from 'aws-amplify-react/dist/AmplifyMessageMap';
 import Amplify, {Auth} from 'aws-amplify';
 import PropTypes from 'prop-types';
 
-
 export const AUTH_STATES = {
   signIn: "signIn",
   signUp: "signUp",
@@ -45,7 +44,8 @@ const defaultState = {
   authState: AUTH_STATES.signIn,
   authData: null,
   error: null,
-  permissions: []
+  permissions: [],
+  attributes: {},
 };
 
 export function PermissionsRequireOne(permissions, groups) {
@@ -60,7 +60,6 @@ export function PermissionsRequireOne(permissions, groups) {
 }
 
 export function PermissionsRequireAll(permissions, groups) {
-
   let notAll = permissions.length;
   for (let p = 0; p < permissions.length; p++) {
     for (let g = 0; g < groups.length; g++) {
@@ -69,7 +68,6 @@ export function PermissionsRequireAll(permissions, groups) {
       }
     }
   }
-
   return notAll < 0
 }
 
@@ -86,10 +84,9 @@ class Authenticator extends Component {
     });
 
     this.state = {
-      ...defaultState,
+      ...Object.assign({}, defaultState),
       errorColor: !!this.props.errorColor ? this.props.errorColor : defaultState.errorColor,
     };
-    this.state = defaultState;
   }
 
   componentDidMount() {
@@ -118,7 +115,17 @@ class Authenticator extends Component {
       permissions = [];
     }
 
-    this.setState({authState: state, authData: data, permissions: [...permissions], error: null});
+    let attributes = this.state.attributes;
+    if (state === AUTH_STATES.signedIn &&
+      !!data &&
+      data.attributes) {
+      attributes = data.attributes;
+    }
+    else {
+      attributes = {};
+    }
+
+    this.setState({authState: state, authData: data, permissions: [...permissions], attributes, error: null});
     if (this.props.onStateChange) {
       this.props.onStateChange(state, data);
     }
@@ -151,7 +158,7 @@ class Authenticator extends Component {
 
 
   render() {
-    const {authState, authData, permissions, errorColor} = this.state;
+    const {authState, authData, permissions, attributes, errorColor} = this.state;
 
     let {hideDefault, hide, federated, background, clearLocalStorage} = this.props;
     if (!hide) {
@@ -178,6 +185,7 @@ class Authenticator extends Component {
         authData: authData,
         background: background,
         permissions: permissions,
+        attributes: attributes,
         onStateChange: this.handleStateChange,
         onAuthEvent: this.handleAuthEvent,
         hide: hide
@@ -207,7 +215,6 @@ export default withStyles(styles)(Authenticator);
 
 
 class _AuthenticationContainer extends Component {
-
   render() {
     const {children, classes, background} = this.props;
     return (
